@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PokerCardCal</string>
+    <string name="title_home">开战！</string>
+    <string name="title_dashboard">历史回顾</string>
+    <string name="title_notifications">本次回顾</string>
+    <string name="hello_luoluo">hello_luoluo</string>
+</resources>
