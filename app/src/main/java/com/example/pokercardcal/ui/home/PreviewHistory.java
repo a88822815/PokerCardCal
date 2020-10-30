@@ -40,7 +40,7 @@ public class PreviewHistory extends ContentProvider {
     static final int DATABASE_VERSION = 1;
     static final String CREATE_DB_TABLE =
             " CREATE TABLE " + TABLE_NAME +
-                    " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                    " (_id INTEGER PRIMARY KEY AUTOINCREMENT, " + "uri TEXT NOT NULL," +
                     " name1 TEXT NOT NULL, " +" name2 TEXT NOT NULL, " +" name3 TEXT NOT NULL, " +" name4 TEXT NOT NULL, " +
                     " score1 INTEGER DEFAULT(0)," + " score2 INTEGER DEFAULT(0)," + " score3 INTEGER DEFAULT(0)," + " score4 INTEGER DEFAULT(0));";
 
