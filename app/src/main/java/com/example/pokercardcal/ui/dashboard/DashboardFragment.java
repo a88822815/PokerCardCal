@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,9 +20,10 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.pokercardcal.R;
 
+import java.util.ArrayList;
+
 public class DashboardFragment extends Fragment {
 
-    private DashboardViewModel dashboardViewModel;
     private Toast mToast = null;
     private boolean isShowingToast = false;
     private Handler mHandler = new Handler() {
@@ -38,70 +40,47 @@ public class DashboardFragment extends Fragment {
             }
         }
     };
+    private ArrayList<HistoryRecord> hhh = new ArrayList<HistoryRecord>();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        dashboardViewModel =
-                ViewModelProviders.of(this).get(DashboardViewModel.class);
         View root = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        final ListView list = root.findViewById(R.id.phlist);
 
-        final EditText nums = root.findViewById(R.id.nums);
-        final ImageView plus1 = root.findViewById(R.id.plus1);
-        final ImageView minus1 = root.findViewById(R.id.minus1);
-        final EditText editText1 = root.findViewById(R.id.editText1); //第一个人的人名
-        final EditText editText11 = root.findViewById(R.id.editText11); //第一个人所剩金额
-        final EditText editText21 = root.findViewById(R.id.editText21); //第一个人临时金额
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        hhh.add(new HistoryRecord("aaa","123"));
+        HistoryAdapter ad = new HistoryAdapter(getActivity(),R.layout.history_item,hhh);
+        list.setAdapter(ad);
 
-
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                nums.setText(s);
-            }
-        });
         return root;
     }
 
-    //加法，参数nums加的数，editText被加的文本框
-    public void Plus(EditText nums,EditText editText){
-        if (nums.getText().toString().trim().isEmpty()){
-            showToast("请输入金额");
-//            Toast.makeText(getActivity(),"请输入金额", Toast.LENGTH_SHORT).show();
-        }else {
-            int num = Integer.valueOf(nums.getText().toString());
-            if (editText.getText().toString().trim().isEmpty()){
-                editText.setText(num+"");
-            }else {
-                String ed21 = editText.getText().toString();
-                int t = Integer.valueOf(ed21) + num;
-                editText.setText(t + "");
-            }
-        }
-    }
 
-    //减法
-    public void Minus(EditText nums,EditText editText){
-        if (nums.getText().toString().trim().isEmpty()){
-            showToast("请输入金额");
-//            Toast.makeText(getActivity(),"请输入金额", Toast.LENGTH_SHORT).show();
-        }else {
-            int num = Integer.valueOf(nums.getText().toString());
-            if (editText.getText().toString().trim().isEmpty() ){
-                editText.setText(0-num+"");
-            }else {
-                String ed21 = editText.getText().toString();
-                int t = Integer.valueOf(ed21) - num;
-                editText.setText(t + "");
-            }
-        }
-    }
-
-    public int StringToInt(String s){
-        int i;
-        if (s.trim().isEmpty()) i=0;
-        else  i =Integer.valueOf(s);
-        return i;
-    }
+//    public int StringToInt(String s){
+//        int i;
+//        if (s.trim().isEmpty()) i=0;
+//        else  i =Integer.valueOf(s);
+//        return i;
+//    }
 
 
     /**
