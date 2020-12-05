@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +30,8 @@ import android.os.Message;
 
 import com.example.pokercardcal.R;
 
+import java.util.Locale;
+
 public class HomeFragment extends Fragment {
 
     private Toast mToast = null;
@@ -48,6 +51,7 @@ public class HomeFragment extends Fragment {
             }
         }
     };
+    private TextToSpeech textToSpeech;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -264,6 +268,28 @@ public class HomeFragment extends Fragment {
                     editText22.setText("");
                     editText23.setText("");
                     editText24.setText("");
+                    //实例并初始化TTS对象
+
+                    String tts = "卢陈越";
+                    showToast("123");
+                    textToSpeech =new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+                        @Override
+                        public void onInit(int status) {
+
+                            if (status==TextToSpeech.SUCCESS) {
+                                //设置朗读语言
+                                //这里要要注意一下初始化的步骤，这里是一个异步操作
+                                int supported =textToSpeech.setLanguage(Locale.US);
+                                if ((supported!=TextToSpeech.LANG_AVAILABLE)&&(supported!=TextToSpeech.LANG_COUNTRY_AVAILABLE)) {
+//                                    Toast.makeText(getActivity().this, "不支持当前语言！", Toast.LENGTH_SHORT).show();
+                                    showToast("不支持");
+                                }
+                            }
+                        }
+                    });
+                    //直接这样写会因为初始化没初始好导致这个播报不出来，因为上面的是异步的操作
+                    //可以在这个地方打印一个log然后在上面那边打印一个log看谁先执行就知道了。
+                    textToSpeech.speak(tts, TextToSpeech.QUEUE_FLUSH, null);
                 }
 
             }
